@@ -12,15 +12,11 @@ function calculateLove(event) {
         return;
     }
 
-    // Custom logic to calculate the percentage.
     let score = getScore(name1, name2);
 
-    // Red pulse animation on button press
     body.style.animation = "pulseRed 0.5s forwards";
     
-    // Delay the display of the result and background change to allow pulse effect to show
     setTimeout(() => {
-        // Change background and result style based on score
         if (score <= 30) {
             body.style.background = 'linear-gradient(135deg, #6b6bff, #8e8eff)';
             resultDiv.style.color = '#6b6bff';
@@ -32,7 +28,6 @@ function calculateLove(event) {
             resultDiv.style.color = '#ff6b6b';
         }
 
-        // Display the result with a pulse effect (only once)
         resultDiv.innerHTML = `${name1} and ${name2} are a match: ${score}%`;
         resultDiv.style.display = 'block';
         
@@ -43,7 +38,7 @@ function calculateLove(event) {
         } else {
             createHearts(70);
         }
-    }, 2000); // Delay result by 2 seconds to make pulse effect visible
+    }, 2000);
 }
 
 function getScore(name1, name2) {
@@ -57,7 +52,7 @@ function getScore(name1, name2) {
         charSum += combinedNames.charCodeAt(i);
     }
 
-    let baseScore = charSum % 101;  // Mod 101 to get a value between 0-100.
+    let baseScore = charSum % 101;
     let nameLengthDifference = Math.abs(name1.length - name2.length);
     let lengthAdjustment = Math.max(0, 10 - nameLengthDifference);
     let matchingLetters = getMatchingLetters(name1, name2);
@@ -82,24 +77,20 @@ function getMatchingLetters(name1, name2) {
     return matchCount;
 }
 
-// Function to create floating hearts
 function createHearts(count) {
     for (let i = 0; i < count; i++) {
         const heart = document.createElement('div');
         heart.classList.add('heart');
-        
-        // Set random position for the heart
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = Math.random() * 1 + 7 + 's'; // Random duration between 8-12s for slower movement
 
-        // Set the heart emoji as content
-        heart.textContent = '❤️'; // Use heart emoji
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 1 + 7 + 's';
+
+        heart.textContent = '❤️';
 
         document.body.appendChild(heart);
 
-        // Remove the heart after animation
         setTimeout(() => {
             heart.remove();
-        }, 12000); // Increased time to account for slower floating speed
+        }, 12000);
     }
 }
